@@ -165,7 +165,8 @@ const Blog = mongoose.model("Blog", new mongoose.Schema({
 // Create Blog
 app.post("/api/blogs",authenticateToken, async (req, res) => {
     try {
-        const { title, content, userId } = req.body;
+        const { title, content } = req.body;
+          const userId = req.user.userId;
 
         if (!title || !content || !userId) {
             return res.status(400).json({
