@@ -271,11 +271,12 @@ app.put("/api/blogs/:id",authenticateToken,async (req, res) => {
 // Delete Blog
 app.delete("/api/blogs/:id",authenticateToken,async (req, res) => {
     try {
-        const blog = await Blog.findByIdAndDelete(
-            req.params.id
-        );
+       const blog = await Blog.findOneAndDelete({
+          _id: req.params.id,
+          userId: req.user.userId
+           });
 
-        if (!blog) {
+    if (!blog) {
             return res.status(404).json({
                 message: "Blog not found"
             });
