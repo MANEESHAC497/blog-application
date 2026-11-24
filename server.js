@@ -236,7 +236,7 @@ app.get("/api/blogs/:id", async (req, res) => {
 });
 
 // Update Blog
-app.put("/api/blogs/:id", async (req, res) => {
+app.put("/api/blogs/:id",authenticateToken,async (req, res) => {
     try {
         const { title, content } = req.body;
 
