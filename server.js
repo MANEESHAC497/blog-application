@@ -4,6 +4,28 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const app = express();
+// Authentication Middleware
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({
+            message: "Access token required"
+        });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({
+                message: "Invalid or expired token"
+            });
+        }
+
+        req.user = decoded;
+        next();
+    });
+}
 
 app.use(cors());
 app.use(express.json());
