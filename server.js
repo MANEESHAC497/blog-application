@@ -13,6 +13,24 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(error => console.log(error));
 
+// User Model
+const User = mongoose.model("User", new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+}));
+
 // Blog Model
 const Blog = mongoose.model("Blog", new mongoose.Schema({
     title: {
