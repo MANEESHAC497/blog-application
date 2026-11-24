@@ -270,7 +270,7 @@ app.put("/api/blogs/:id",authenticateToken,async (req, res) => {
 });
 
 // Delete Blog
-app.delete("/api/blogs/:id", async (req, res) => {
+app.delete("/api/blogs/:id",authenticateToken,async (req, res) => {
     try {
         const blog = await Blog.findByIdAndDelete(
             req.params.id
