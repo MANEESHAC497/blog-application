@@ -35,17 +35,18 @@ const Blog = mongoose.model("Blog", new mongoose.Schema({
 // Create Blog
 app.post("/api/blogs", async (req, res) => {
     try {
-        const { title, content } = req.body;
+        const { title, content, userId } = req.body;
 
-        if (!title || !content) {
+        if (!title || !content || !userId) {
             return res.status(400).json({
-                message: "Title and content are required"
+                message: "Title, content and userId are required"
             });
         }
 
         const blog = await Blog.create({
             title,
-            content
+            content,
+            userId
         });
 
         res.status(201).json({
