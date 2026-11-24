@@ -246,12 +246,11 @@ app.put("/api/blogs/:id",authenticateToken,async (req, res) => {
             });
         }
 
-        const blog = await Blog.findByIdAndUpdate(
-            req.params.id,
-            { title, content },
-            { new: true, runValidators: true }
-        );
-
+        const blog = await Blog.findOneAndUpdate(
+    { _id: req.params.id, userId: req.user.userId },
+    { title, content },
+    { new: true, runValidators: true }
+);
         if (!blog) {
             return res.status(404).json({
                 message: "Blog not found"
