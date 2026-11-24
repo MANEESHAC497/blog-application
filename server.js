@@ -60,12 +60,22 @@ app.post("/api/blogs", async (req, res) => {
     }
 });
 
-// Get All Blogs
+// Get All Blogs (User Specific)
 app.get("/api/blogs", async (req, res) => {
     try {
-        const blogs = await Blog.find().sort({
-            createdAt: -1
-        });
+        const { userId } = req.query;
+
+        let blogs;
+
+        if (userId) {
+            blogs = await Blog.find({ userId }).sort({
+                createdAt: -1
+            });
+        } else {
+            blogs = await Blog.find().sort({
+                createdAt: -1
+            });
+        }
 
         res.json(blogs);
     } catch (error) {
