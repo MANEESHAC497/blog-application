@@ -194,7 +194,7 @@ app.post("/api/blogs",authenticateToken, async (req, res) => {
 // Get All Blogs (User Specific)
 app.get("/api/blogs",authenticateToken,async (req, res) => {
     try {
-        const { userId } = req.query;
+        const userId = req.user.userId;
 
         let blogs;
 
