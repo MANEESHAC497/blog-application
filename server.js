@@ -163,7 +163,7 @@ const Blog = mongoose.model("Blog", new mongoose.Schema({
 }));
 
 // Create Blog
-app.post("/api/blogs", async (req, res) => {
+app.post("/api/blogs",authenticateToken, async (req, res) => {
     try {
         const { title, content, userId } = req.body;
 
